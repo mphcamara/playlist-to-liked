@@ -4,9 +4,9 @@ A small Python script that adds every song from your Spotify playlists to your *
 
 ## Features
 
-- Reads all of your own and followed playlists
+- Reads all of your own playlists
 - Removes duplicates and songs that are already liked
-- Adds new songs in batches of 50 (API limit)
+- Adds new songs in batches of 40
 - Automatically skips local files and podcast episodes
 
 ## Requirements
