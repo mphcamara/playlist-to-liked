@@ -1,4 +1,5 @@
 # playlist-to-liked
+<<<<<<< HEAD
 
 A small Python script that adds every song from your Spotify playlists to your **Liked Songs**. Songs you have already liked are skipped.
 
@@ -73,3 +74,6 @@ On the first run, a browser window opens for Spotify login. After you confirm, t
 ## License
 
 MIT. See [LICENSE](LICENSE).
+=======
+Adds all songs saved in all personal playlists to the liked songs.
+>>>>>>> 3461d981a5a2c59219b33b1822dca6b38cc4d20d
