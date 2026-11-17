@@ -20,15 +20,24 @@ def paginate(page):
 liked = {i["track"]["id"] for i in paginate(sp.current_user_saved_tracks(limit=50))}
 
 # Alle Tracks aus allen Playlists
+me = sp.me()["id"]
 new = set()
 for pl in paginate(sp.current_user_playlists(limit=50)):
-    for item in paginate(sp.playlist_items(pl["id"], limit=100)):
-        t = item.get("track")
-        if t and t.get("id") and not t.get("is_local"):
-            new.add(t["id"])
+    if pl["owner"]["id"] != me and not pl["collaborative"]:
+        continue
+    try:
+        for item in paginate(sp.playlist_items(pl["id"], limit=100)):
+            t = item.get("item") or item.get("track")
+            if t and t.get("id") and not t.get("is_local"):
+                new.add(t["id"])
+    except spotipy.SpotifyException as e:
+        if e.http_status == 403:
+            print(f"Übersprungen (403): {pl['name']}")
+            continue
+        raise
 
 to_add = list(new - liked)
 print(f"{len(to_add)} neue Songs")
 
-for i in range(0, len(to_add), 50):
-    sp.current_user_saved_tracks_add(to_add[i:i+50])
+for i in range(0, len(to_add), 40):
+    sp.current_user_saved_tracks_add(to_add[i:i+40])
